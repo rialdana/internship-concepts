@@ -1,4 +1,4 @@
-package la.ideaworks.testconceptsapp
+package la.ideaworks.testconceptsapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import la.ideaworks.testconceptsapp.databinding.ItemUsersBinding
+import la.ideaworks.testconceptsapp.models.User
 
 class UsersAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<User, UsersAdapter.UsersViewHolder>(DiffCallback) {

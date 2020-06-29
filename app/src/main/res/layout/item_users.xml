@@ -6,7 +6,7 @@
 
         <variable
             name="user"
-            type="la.ideaworks.testconceptsapp.User" />
+            type="la.ideaworks.testconceptsapp.models.User" />
     </data>
 
     <LinearLayout

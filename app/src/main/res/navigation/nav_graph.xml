@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="la.ideaworks.testconceptsapp.UserListFragment"
+        android:name="la.ideaworks.testconceptsapp.fragments.UserListFragment"
         tools:layout="@layout/fragment_user_list"
         android:label="UserListFragment" >
         <action
@@ -17,10 +17,10 @@
     <fragment
         android:id="@+id/openUserDetailAction"
         tools:layout="@layout/fragment_user_detail"
-        android:name="la.ideaworks.testconceptsapp.UserDetailFragment"
+        android:name="la.ideaworks.testconceptsapp.fragments.UserDetailFragment"
         android:label="UserDetailFragment" >
         <argument
             android:name="user"
-            app:argType="la.ideaworks.testconceptsapp.User" />
+            app:argType="la.ideaworks.testconceptsapp.models.User" />
     </fragment>
 </navigation>

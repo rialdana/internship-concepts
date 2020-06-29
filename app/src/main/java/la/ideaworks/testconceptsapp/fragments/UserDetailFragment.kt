@@ -1,4 +1,4 @@
-package la.ideaworks.testconceptsapp
+package la.ideaworks.testconceptsapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

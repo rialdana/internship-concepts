@@ -1,4 +1,4 @@
-package la.ideaworks.testconceptsapp
+package la.ideaworks.testconceptsapp.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
