@@ -24,37 +24,13 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentUserListBinding.inflate(inflater)
 
+        binding = FragmentUserListBinding.inflate(inflater).apply {
+            lifecycleOwner = this@UserListFragment
+            viewModel = this@UserListFragment.viewModel
+        }
 
         binding.recyclerViewUsers.adapter = UsersAdapter(getUserCallback())
-
-        viewModel.usersList.observe(viewLifecycleOwner, Observer {
-            it?.let { usersList ->
-                (binding.recyclerViewUsers.adapter as UsersAdapter).submitList(usersList)
-            }
-        })
-
-        viewModel.apiStatus.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                when (it) {
-                    LOADING -> binding.progressBarUsersList.visibility = View.VISIBLE
-                    SUCCESS -> {
-                        binding.progressBarUsersList.visibility = View.GONE
-                    }
-                    ERROR -> {
-                        binding.progressBarUsersList.visibility = View.GONE
-                        binding.textErrorMessage.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
-
-        viewModel.usersListErrorMessage.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                binding.textErrorMessage.text = it
-            }
-        })
 
         return binding.root
     }

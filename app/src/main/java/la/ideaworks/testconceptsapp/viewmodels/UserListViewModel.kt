@@ -8,9 +8,6 @@ import la.ideaworks.testconceptsapp.models.User
 import la.ideaworks.testconceptsapp.utils.ERROR
 import la.ideaworks.testconceptsapp.utils.LOADING
 import la.ideaworks.testconceptsapp.utils.SUCCESS
-import retrofit2.HttpException
-import java.net.UnknownHostException
-import kotlin.Exception
 
 class UserListViewModel : ViewModel() {
 
@@ -43,7 +40,7 @@ class UserListViewModel : ViewModel() {
              * estar envuelta en un bloque try catch como se muestra aqui
              */
             try {
-                throw Exception("No pudimos cargar los usuarios")
+                // throw Exception("No pudimos cargar los usuarios")
 
                 _usersList.value = listOf(
                     User(0, "Otto", 23, "Jefe"),
