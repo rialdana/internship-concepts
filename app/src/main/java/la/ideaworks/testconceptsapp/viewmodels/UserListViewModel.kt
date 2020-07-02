@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import la.ideaworks.testconceptsapp.data.UsersRepository
+import la.ideaworks.testconceptsapp.data.network.RemoteDataSource
 import la.ideaworks.testconceptsapp.models.User
 import la.ideaworks.testconceptsapp.utils.ERROR
 import la.ideaworks.testconceptsapp.utils.LOADING
@@ -15,7 +16,7 @@ import la.ideaworks.testconceptsapp.utils.SUCCESS
 
 class UserListViewModel : ViewModel() {
 
-    private val repository = UsersRepository()
+    private val repository = UsersRepository(RemoteDataSource())
 
     private val _usersList = MutableLiveData<List<User>>()
     val usersList: LiveData<List<User>>
