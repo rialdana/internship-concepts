@@ -1,15 +1,21 @@
 package la.ideaworks.testconceptsapp.viewmodels
 
 import android.os.Handler
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import la.ideaworks.testconceptsapp.data.UsersRepository
 import la.ideaworks.testconceptsapp.models.User
 import la.ideaworks.testconceptsapp.utils.ERROR
 import la.ideaworks.testconceptsapp.utils.LOADING
 import la.ideaworks.testconceptsapp.utils.SUCCESS
 
 class UserListViewModel : ViewModel() {
+
+    private val repository = UsersRepository()
 
     private val _usersList = MutableLiveData<List<User>>()
     val usersList: LiveData<List<User>>
@@ -23,33 +29,24 @@ class UserListViewModel : ViewModel() {
     val usersListErrorMessage: LiveData<String>
         get() = _usersListErrorMessage
 
+    private val _messageFromRepository = MutableLiveData<String>()
+    val messageFromRepository: LiveData<String>
+        get() = _messageFromRepository
+
     init {
         loadUsers()
+
     }
 
     private fun loadUsers() {
-        _apiStatus.value = LOADING
-        /**
-         * Este bloque handler nos ayuda a simular una llamada a un endpoint de retrofit que
-         * demora 3000 milisegundos (3 segundos)
-         */
-        Handler().postDelayed({
 
-            /**
-             * Si esta fuera una llamada a retrofit utilizando suspend functions, deberia
-             * estar envuelta en un bloque try catch como se muestra aqui
-             */
+        viewModelScope.launch {
+
+            _apiStatus.value = LOADING
+
             try {
-                // throw Exception("No pudimos cargar los usuarios")
 
-                _usersList.value = listOf(
-                    User(0, "Otto", 23, "Jefe"),
-                    User(1, "Ricardo", 23, "Developer"),
-                    User(2, "Gaby", 23, "UI/UX"),
-                    User(3, "Zayda", 23, "PM"),
-                    User(4, "Oscar", 23, "Developer"),
-                    User(5, "Enrique", 23, "Developer")
-                )
+                _usersList.value = repository.getUsersList()
 
                 _apiStatus.value = SUCCESS
 
@@ -57,7 +54,12 @@ class UserListViewModel : ViewModel() {
                 _apiStatus.value = ERROR
                 _usersListErrorMessage.value = e.message
             }
-        }, 3000)
+        }
+    }
+
+    fun sendMessageFromViewModel(name: String){
+        Log.i("Users", "Started call from view Model")
+        _messageFromRepository.value = repository.sayMyName(name)
     }
 
 }
