@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import la.ideaworks.testconceptsapp.adapters.UsersAdapter
 import la.ideaworks.testconceptsapp.databinding.FragmentUserListBinding
@@ -17,7 +18,11 @@ import la.ideaworks.testconceptsapp.viewmodels.UserListViewModel
 class UserListFragment : Fragment() {
 
     private lateinit var binding: FragmentUserListBinding
-    private val viewModel: UserListViewModel by viewModels()
+    private var newUserId = 1
+
+    private val viewModel: UserListViewModel by viewModels {
+        UserListViewModel.UsersListViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +35,11 @@ class UserListFragment : Fragment() {
         }
 
         binding.recyclerViewUsers.adapter = UsersAdapter(getUserCallback())
+
+        binding.buttonSaveUsers.setOnClickListener {
+            viewModel.saveLocalUser(userId = newUserId, name = "Ricardo")
+            newUserId++
+        }
 
         sendMessageFromFragment()
 
